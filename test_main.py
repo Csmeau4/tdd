@@ -24,6 +24,26 @@ def test_new_task():
     assert tm.tasks[1].name == "faire la vaisselle"
     assert tm.tasks[1].status == " "
 
+def test_action():
+    tm = TaskManager()
+
+    tm.action("+ newtask")
+    tm.action("+ task2")
+
+    assert tm.tasks.__len__() == 2
+
+    tm.action("o 0")
+    tm.action("x 1")
+
+    assert tm.tasks[0].status == "o"
+    assert tm.tasks[1].status == "x"
+
+    tm.action("- 0")
+
+    assert tm.tasks.__len__() == 1
+    assert tm.tasks[0].name == "task2"
+
 
 test_check_input()
 test_new_task()
+test_action()

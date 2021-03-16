@@ -1,4 +1,5 @@
 from Task import Task
+import sys
 
 class TaskManager():
     def __init__(self):
@@ -6,12 +7,25 @@ class TaskManager():
 
     def user_input(self):
         while True:
+            print(self)
             value = input()
             while not self.check_input(value):
                 value = input()
+            self.action(value)
 
 
-
+    def action(self, value):
+        if value[0] == "+":
+            self.new_task(value[2:])
+        elif value[0] in ["-", "x", "o"]:
+            tasknumber = int(value[2:])
+            if 0 <= tasknumber < self.tasks.__len__():
+                if value[0] == "-":
+                    del self.tasks[tasknumber]
+                else:
+                    self.tasks[tasknumber].status = value[0]
+        elif value == "q":
+            sys.exit()
 
     def check_input(self, value):
         if value:
@@ -24,10 +38,9 @@ class TaskManager():
                         if value[0] == "+":
                             # user is entering new task
                             return True
-                        elif value[0] in ["x", "o", "-"]:
-                            if value[2:].isnumeric():
-                                # user is updating or deleting a task
-                                return True
+                        elif value[0] in ["x", "o", "-"] and value[2:].isnumeric():
+                            # user is updating or deleting a task
+                            return True
         # user input is invalid
         return False
 
