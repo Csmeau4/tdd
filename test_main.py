@@ -4,7 +4,7 @@ from Task import Task
 def test_check_input():
     tm = TaskManager()
 
-    valid_strings = ["+ New", "x 1", "o 4", "- New", "q"]
+    valid_strings = ["+ New", "x 1", "o 4", "- 1", "q"]
     invalid_strings = ["", " ", "a", "q ", "+New", "-New", "+ ", "x New", "o New"]
 
     for valid in valid_strings:
@@ -19,11 +19,9 @@ def test_new_task():
     tm.new_task("faire la vaisselle")
 
     assert tm.tasks[0].name == "étendre le linge"
-    assert tm.tasks[0].number == 0
     assert tm.tasks[0].status == " "
 
     assert tm.tasks[1].name == "faire la vaisselle"
-    assert tm.tasks[1].number == 1
     assert tm.tasks[1].status == " "
 
 
